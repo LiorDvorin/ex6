@@ -48,6 +48,7 @@ typedef struct PokemonNode
     PokemonData *data;
     struct PokemonNode *left;
     struct PokemonNode *right;
+    struct PokemonNode *parent;
 } PokemonNode;
 
 // Linked List Node (for Owners)
@@ -59,8 +60,28 @@ typedef struct OwnerNode
     struct OwnerNode *prev;   // Previous owner in the linked list
 } OwnerNode;
 
+typedef struct QueueNode {
+    PokemonNode *data;
+    struct QueueNode *next;
+} QueueNode;
+
+typedef struct Queue {
+    QueueNode *head;
+    QueueNode *tail;
+} Queue;
+
 // Global head pointer for the linked list of owners
 OwnerNode *ownerHead = NULL;
+
+char* pokemonType(PokemonType type);
+char* canEvolve(EvolutionStatus evolve);
+
+
+void freeQueue();
+Queue *createQueue();
+void enqueue(Queue *q, PokemonNode *node);
+PokemonNode *dequeue(Queue *q);
+int isEmpty(Queue *q);
 
 /* ------------------------------------------------------------
    1) Safe Input + Utility
@@ -364,7 +385,7 @@ void displayMenu(OwnerNode *owner);
  * @brief Sort the circular owners list by name.
  * Why we made it: Another demonstration of pointer manipulation + sorting logic.
  */
-void sortOwners(void);
+void sortOwners(int n);
 
 /**
  * @brief Helper to swap name & pokedexRoot in two OwnerNode.
@@ -408,25 +429,25 @@ OwnerNode *findOwnerByName(const char *name);
  * @brief Let user pick an existing Pokedex (owner) by number, then sub-menu.
  * Why we made it: This is the main interface for adding/fighting/evolving, etc.
  */
-void enterExistingPokedexMenu(void);
+void enterExistingPokedexMenu(int n);
 
 /**
  * @brief Creates a new Pokedex (prompt for name, check uniqueness, choose starter).
  * Why we made it: The main entry for building a brand-new Pokedex.
  */
-void openPokedexMenu(void);
+void openPokedexMenu(int n);
 
 /**
  * @brief Delete an entire Pokedex (owner) from the list.
  * Why we made it: Let user pick which Pokedex to remove and free everything.
  */
-void deletePokedex(void);
+void deletePokedex(int n);
 
 /**
  * @brief Merge the second owner's Pokedex into the first, then remove the second owner.
  * Why we made it: BFS copy demonstration plus removing an owner.
  */
-void mergePokedexMenu(void);
+void mergePokedexMenu(int n);
 
 /* ------------------------------------------------------------
    11) Printing Owners in a Circle
