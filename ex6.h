@@ -435,7 +435,7 @@ void enterExistingPokedexMenu(int n);
  * @brief Creates a new Pokedex (prompt for name, check uniqueness, choose starter).
  * Why we made it: The main entry for building a brand-new Pokedex.
  */
-void openPokedexMenu(int n);
+void openPokedexMenu(char* name);
 
 /**
  * @brief Delete an entire Pokedex (owner) from the list.
@@ -467,7 +467,7 @@ void printOwnersCircular(void);
  * @brief Frees every remaining owner in the circular list, setting ownerHead = NULL.
  * Why we made it: Ensures a squeaky-clean exit with no leftover memory.
  */
-void freeAllOwners(void);
+void freeAllOwners(int n);
 
 /* ------------------------------------------------------------
    13) The Main Menu
